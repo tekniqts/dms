@@ -391,7 +391,8 @@ class File(models.Model):
     @api.depends("content")
     def _compute_mimetype(self):
         for record in self:
-            record.res_mimetype = guess_mimetype(record.content or b"")
+            binary = base64.b64decode(record.content or "")
+            record.res_mimetype = guess_mimetype(binary)
 
     @api.depends("content_binary", "content_file", "attachment_id")
     def _compute_content(self):
