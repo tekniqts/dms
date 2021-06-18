@@ -194,7 +194,7 @@ class DmsDirectory(models.Model):
             model = self.env[record.res_model]
             model.check_access_rights(operation)
             if record.res_id:
-                model.browse(record.res_id).check_access_rule(operation)
+                model.search([('id', '=', record.res_id)], limit=1).check_access_rule(operation)
 
     def _compute_access_url(self):
         super()._compute_access_url()

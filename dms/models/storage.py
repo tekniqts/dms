@@ -105,6 +105,8 @@ class Storage(models.Model):
         for record in self:
             if record.save_type == "attachment":
                 record.inherit_access_from_parent_record = True
+            else:
+                record.inherit_access_from_parent_record = False
 
     # ----------------------------------------------------------
     # Actions
