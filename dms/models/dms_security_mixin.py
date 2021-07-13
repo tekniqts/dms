@@ -129,7 +129,8 @@ class DmsSecurityMixin(models.AbstractModel):
             domains.append([("res_model", "=", model._name), ("res_id", "=", False)])
             # Check record access in batch too
             group_ids = [i for i in group["res_id"] if i]  # Hack to remove None res_id
-            related_ok = model.browse(group_ids)._filter_access_rules_python(operation)
+            #related_ok = model.browse(group_ids)._filter_access_rules_python(operation)
+            related_ok = model.search([('id', 'in', group_ids)])._filter_access_rules_python(operation)
             if not related_ok:
                 continue
             domains.append(
